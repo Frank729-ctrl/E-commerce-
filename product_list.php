@@ -45,9 +45,9 @@
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark text-[#111318] antialiased font-display">
-<div class="relative flex min-h-screen flex-col">
-<!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar -->
     <?php include 'includes/navbar.php'?>
+<div class="relative flex min-h-screen flex-col">
 
 <main class="mx-auto flex w-full max-w-[1440px] grow gap-8 px-6 md:px-10 lg:px-20 py-8">
 <!-- Sidebar / Filter Panel -->

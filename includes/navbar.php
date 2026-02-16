@@ -4,12 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- 
-        Note: If this file is included via PHP include(), the <head> section below 
-        will be ignored/duplicated. 
-        Recommendation: Move these to a separate head.php and include it instead.
-        For now, keeping it here as a self-contained "full header" version.
-    -->
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -81,7 +76,7 @@
 
         <a href="/" class="flex items-center gap-3 group">
           <div class="bg-primary p-2 rounded-xl text-white shadow-sm transition-transform group-hover:scale-105">
-            <span class="material-symbols-outlined text-2xl">auto_awesome</span>
+            <img src="'/assets/logo.png" alt="">
           </div>
           <h1 class="text-xl md:text-2xl font-extrabold tracking-tight text-gray-900">
             Snave Army
@@ -91,10 +86,10 @@
 
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center gap-8">
-        <a href="/electronics" class="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">Electronics</a>
-        <a href="/phones"      class="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">Phones</a>
-        <a href="/cars"        class="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">Cars</a>
-        <a href="/accessories" class="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">Accessories</a>
+        <a href="/index.php" class="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">Home</a>
+        <a href="/index.php/#products" class="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">Categories</a>
+        <a href="/product_list.php" class="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">Products</a>
+        <a href="/about.php"        class="text-sm font-semibold text-gray-700 hover:text-primary transition-colors">About us</a>
       </nav>
 
       <!-- Right Side: Search + Icons + Profile -->
