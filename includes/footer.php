@@ -2,17 +2,14 @@
 <footer id="contact" class="bg-gray-900 text-gray-300 py-16">
   <div class="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-12">
-      
+
       <!-- Column 1: Brand + Description -->
       <div>
-        <div class="flex items-center gap-3 mb-6">
-          <div class="bg-primary p-2 rounded-lg text-white">
-            <span class="material-symbols-outlined text-xl">auto_awesome</span>
-          </div>
-          <h4 class="text-xl font-bold text-white tracking-tight">Snave Army</h4>
+        <div class="flex items-center gap-3 mb-4">
+          <h4 class="text-2xl font-bold text-white tracking-tight">Snave Army</h4>
         </div>
-        <p class="text-gray-400 leading-relaxed mb-6">
-          Premium gadgets, vehicles and electronics — made affordable with flexible small-small payments.
+        <p class="text-gray-400 leading-relaxed mb-4">
+          Premium gadgets, vehicles, and electronics — made affordable with flexible small-small payments.
         </p>
         <p class="text-sm text-gray-500">
           Kumasi & Accra • Nationwide delivery
@@ -21,19 +18,19 @@
 
       <!-- Column 2: Quick Links -->
       <div>
-        <h4 class="text-lg font-bold text-white mb-6">Quick Links</h4>
-        <ul class="space-y-3 text-gray-400">
-          <li><a href="/" class="hover:text-primary transition-colors">Home</a></li>
+        <h4 class="text-lg font-bold text-white mb-4">Quick Links</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="/index.php" class="hover:text-primary transition-colors">Home</a></li>
           <li><a href="#products" class="hover:text-primary transition-colors">Shop</a></li>
           <li><a href="/how-it-works" class="hover:text-primary transition-colors">How It Works</a></li>
-          <li><a href="/about" class="hover:text-primary transition-colors">About Us</a></li>
+          <li><a href="/about.php" class="hover:text-primary transition-colors">About Us</a></li>
           <li><a href="/contact" class="hover:text-primary transition-colors">Contact</a></li>
         </ul>
       </div>
 
       <!-- Column 3: Contact -->
       <div>
-        <h4 class="text-lg font-bold text-white mb-6">Get in Touch</h4>
+        <h4 class="text-lg font-bold text-white mb-4">Get in Touch</h4>
         <ul class="space-y-4 text-gray-400">
           <li class="flex items-start gap-3">
             <span class="material-symbols-outlined text-primary mt-0.5">call</span>
@@ -55,9 +52,9 @@
 
       <!-- Column 4: Newsletter + Social -->
       <div>
-        <h4 class="text-lg font-bold text-white mb-6">Stay Updated</h4>
+        <h4 class="text-lg font-bold text-white mb-4">Stay Updated</h4>
         <p class="text-gray-400 mb-4">Subscribe for exclusive deals & new arrivals</p>
-        
+
         <form class="flex flex-col gap-3">
           <input 
             type="email" 
@@ -73,47 +70,35 @@
         </form>
 
         <!-- Social Icons -->
-        <div class="mt-8 flex gap-6 justify-start md:justify-start">
-          <!-- Instagram -->
+        <div class="mt-6 flex gap-4">
           <a href="https://instagram.com/snavearmy" 
              target="_blank" rel="noopener noreferrer" 
-             class="text-gray-400 hover:text-pink-500 transition-colors transform hover:scale-110" 
-             aria-label="Follow us on Instagram">
-            <img src="assets/icons/instagram.svg" alt="Instagram icon" class="w-8 h-8" />
+             class="hover:scale-110 transition-transform" aria-label="Instagram">
+            <img src="assets/icons/instagram.svg" alt="Instagram icon" class="w-6 h-6" />
           </a>
-
-          <!-- WhatsApp -->
           <a href="https://wa.me/233206286541"
-             target="_blank" rel="nooner noreferrer" 
-             class="text-gray-400 hover:text-green-500 transition-colors transform hover:scale-110" 
-             aria-label="Chat with us on WhatsApp">
-            <img src="assets/icons/whatsapp.svg" alt="WhatsApp icon" class="w-8 h-8" />
+             target="_blank" rel="noopener noreferrer" 
+             class="hover:scale-110 transition-transform" aria-label="WhatsApp">
+            <img src="assets/icons/whatsapp.svg" alt="WhatsApp icon" class="w-6 h-6" />
           </a>
-
-          <!-- Facebook -->
           <a href="https://facebook.com/snavearmy" 
              target="_blank" rel="noopener noreferrer" 
-             class="text-gray-400 hover:text-blue-600 transition-colors transform hover:scale-110" 
-             aria-label="Follow us on Facebook">
-            <img src="assets/icons/facebook.svg" alt="Facebook icon" class="w-8 h-8" />
+             class="hover:scale-110 transition-transform" aria-label="Facebook">
+            <img src="assets/icons/facebook.svg" alt="Facebook icon" class="w-6 h-6" />
           </a>
-
-          <!-- X/Twitter -->
           <a href="https://x.com/snavearmy" 
              target="_blank" rel="noopener noreferrer" 
-             class="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-110" 
-             aria-label="Follow us on X (Twitter)">
-            <img src="assets/icons/x.svg" alt="X/Twitter icon" class="w-8 h-8" />
+             class="hover:scale-110 transition-transform" aria-label="X/Twitter">
+            <img src="assets/icons/x.svg" alt="X/Twitter icon" class="w-6 h-6" />
           </a>
         </div>
       </div>
     </div>
 
     <!-- Bottom Bar -->
-    <div class="mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-500">
+    <div class="mt-12 pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
       <p>© <?php echo date('Y'); ?> Snave Army Ghana. All rights reserved.</p>
-      
-      <div class="flex flex-wrap gap-6 justify-center md:justify-end">
+      <div class="flex flex-wrap gap-4 justify-center md:justify-end">
         <a href="/privacy" class="hover:text-gray-300 transition-colors">Privacy Policy</a>
         <a href="/terms" class="hover:text-gray-300 transition-colors">Terms of Service</a>
         <a href="/refund" class="hover:text-gray-300 transition-colors">Refund Policy</a>
