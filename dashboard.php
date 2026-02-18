@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: /sign_in.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +72,7 @@ body { font-family: 'Inter', sans-serif; }
 
 <nav class="flex-1 px-4 space-y-2">
 
-<a class="flex items-center gap-3 px-4 py-3 active-nav rounded-lg transition-all" href="#">
+<a class="flex items-center gap-3 px-4 py-3 active-nav rounded-lg transition-all" href="dashboard.php">
 <span class="material-symbols-outlined">dashboard</span>
 <span class="text-sm font-semibold">Overview</span>
 </a>
@@ -82,6 +92,11 @@ body { font-family: 'Inter', sans-serif; }
 <span class="text-sm font-semibold">Saved Items</span>
 </a>
 
+<a class="flex items-center gap-3 px-4 py-3 text-soft-gray hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all" href="cart.php">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="text-sm font-semibold">Cart</span>
+</a>
+
 <div class="pt-8 pb-4">
 <p class="px-4 text-[10px] font-bold text-soft-gray uppercase tracking-widest">Account</p>
 </div>
@@ -90,6 +105,15 @@ body { font-family: 'Inter', sans-serif; }
 <span class="material-symbols-outlined">settings</span>
 <span class="text-sm font-semibold">Settings</span>
 </a>
+
+<!-- Logout button – placed at the bottom of the sidebar -->
+    <a 
+      href="/auth/logout.php" 
+      class="flex items-center gap-3 px-4 py-3 mt-4 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 dark:text-red-400 rounded-lg transition-all font-semibold"
+    >
+      <span class="material-symbols-outlined">logout</span>
+      <span class="text-sm">Log out</span>
+    </a>
 
 </nav>
 </aside>
@@ -201,5 +225,6 @@ body { font-family: 'Inter', sans-serif; }
     </main>
 
 </div>
+
 </body>
 </html>

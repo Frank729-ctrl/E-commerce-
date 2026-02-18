@@ -1,6 +1,10 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 session_start();
-require '../config.php'; // DB connection file
+require __DIR__ . '/../config.php'; // DB connection file
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -9,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($email) || empty($password)) {
         $_SESSION['error'] = "All fields are required.";
-        header("Location: ../index.php");
+        header("Location: /sign_in.php");
         exit();
     }
 
@@ -31,19 +35,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             exit();
         } else {
             $_SESSION['error'] = "Incorrect password.";
-            header("Location: ../index.php");
+            header("Location: /sign_in.php");
             exit();
         }
     } else {
         $_SESSION['error'] = "Email not registered.";
-        header("Location: ../index.php");
+        header("Location: /sign_in.php");
         exit();
     }
 
     $stmt->close();
     $conn->close();
 } else {
-    header("Location: ../index.php");
+    header("Location: /sign_in.php");
     exit();
 }
 ?>
