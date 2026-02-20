@@ -1,0 +1,299 @@
+So this is the official start of SNAVEARMY 
+
+This is how the file structure is supposed to be ( will be changing current to fit this )
+
+snavearmy/
+│
+├─ assets/
+│   ├─ js/          							(js mostly the work of Louis)
+│   │   ├─ auth.js            # Frontend JS for form validation
+│   │   ├─ cart.js            # Frontend JS for cart interactivity
+│   │   ├─ products.js        # JS to fetch and render products via API
+│   │   └─ dashboard.js       # Admin dashboard interactivity (optional)
+│   ├─ css/
+│   │   └─ style.css
+│   ├─ images/					(Ezekiel is here as well) #I think
+│   └─ icons/
+│
+├─ api/                       # All backend logic/API endpoints  (Where Ezekiel and Dela would be working )
+│   ├─ auth/
+│   │   ├─ register.php       # Handle user registration, send verification email
+│   │   ├─ login.php          # Handle login, return success/fail
+│   │   ├─ logout.php         # Logout logic
+│   │   ├─ verify_email.php   # Handle email verification via token
+│   │   └─ send_reset_email.php # Send password reset email
+│   │
+│   ├─ products/
+│   │   ├─ get_products.php   # Return all products (JSON)
+│   │   ├─ get_product.php    # Return single product details
+│   │   ├─ search_products.php # Return search results
+│   │   ├─ create_product.php # Admin: add product
+│   │   ├─ update_product.php # Admin: edit product
+│   │   └─ delete_product.php # Admin: delete product
+│   │
+│   ├─ cart/
+│   │   ├─ add_to_cart.php    # Add item to cart
+│   │   ├─ get_cart.php       # Get user's cart items
+│   │   ├─ update_cart.php    # Update item quantity
+│   │   └─ remove_from_cart.php # Remove item from cart
+│   │
+│   └─ orders/
+│       ├─ checkout.php       # Create order from cart, send email
+│       └─ get_orders.php     # Return user/admin orders
+│
+├─ includes/
+│   ├─ navbar.php
+│   ├─ footer.php
+│   └─ product_card.php       # Optional: template for a single product card
+│
+├─ auth/                      # Optional if still using old form action method
+│   ├─ login_process.php
+│   ├─ register_process.php
+│   └─ logout.php
+│
+├─ index.php                  # Homepage (calls product API via JS)
+├─ product_list.php           # Product listing page (calls API via JS)
+├─ product_details.php        # Product details page (calls API via JS)
+├─ cart.php                   # Cart page (calls cart API)
+├─ dashboard.php              # Admin dashboard
+├─ about.php		      # About page 
+├─ sign_in.php                # Login/Register forms
+└─ .env                       # Store DB credentials, SMTP keys, Supabase keys
+
+
+How TO SET UP PHP ( TERMINAL BASE ) #YOU WOULD HAVE TO SEARCH FOR WINDOWS BASED (i have no idea on that)
+
+1. Update system {
+
+sudo apt update
+sudo apt upgrade -y
+
+# Add the PPA (safe & widely used)
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt update
+
+}
+
+2. Install PHP + common extensions {
+
+sudo apt install -y php8.3 \
+    php8.3-cli php8.3-fpm php8.3-mysql php8.3-curl \
+    php8.3-mbstring php8.3-xml php8.3-zip php8.3-gd \
+    php8.3-bcmath php8.3-intl php8.3-readline unzip git
+    
+    }
+ verify if downloaded { php -v}
+
+3. Install MySQL { sudo apt install mysql-server -y
+
+secure it and remove anonymous users = sudo mysql_secure_installation
+
+}
+
+4. Install Composer {
+
+Option a : 
+
+cd ~
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+
+# Optional: verify installer (recommended)
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); exit(1); } echo PHP_EOL;"
+
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+rm composer-setup.php
+
+
+Option b : sudo apt install composer -y || and verify : composer --version
+
+5. Git pull {
+
+cd /path/to/your-project
+
+# Install dependencies (skip if no composer.json)
+composer install --prefer-dist --no-progress
+
+# If very memory-heavy project, add:
+# composer install --prefer-dist --no-progress --no-dev
+
+6. Database setup via terminal {
+(setup passwd first)		sudo mysql
+			
+			#frank and SheQuan123! should be changed to what you want (the She... is the passwd and the frank is the user name )
+CREATE USER 'frank'@'localhost' IDENTIFIED BY 'SheQuan123!';
+GRANT ALL PRIVILEGES ON *.* TO 'frank'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EXIT;
+
+			#After that do another sudo mysql and run the below (this time only change the passwd :she...  !!!should be the same as the one you set at the top
+			
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'SheQuan123!';
+FLUSH PRIVILEGES;
+EXIT;
+
+
+log in to MySQL : sudo mysql -u root -p
+# Enter the root password you set (or just Enter if blank — but you should have set one)
+
+
+create db :
+
+CREATE DATABASE IF NOT EXISTS snavearmy;
+USE snavearmy;
+
+then create the tables 				#just copy this whole section and paste ()
+
+((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((
+
+-- Users table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('admin','seller','buyer') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Categories table
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    icon VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Subcategories table
+CREATE TABLE subcategories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+);
+
+-- Products table
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    seller_id INT NOT NULL,
+    category_id INT NOT NULL,
+    subcategory_id INT,
+    title VARCHAR(150) NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    badge VARCHAR(50),
+    image VARCHAR(255),
+    in_stock BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (seller_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
+    FOREIGN KEY (subcategory_id) REFERENCES subcategories(id) ON DELETE SET NULL
+);
+
+-- Orders table
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    buyer_id INT NOT NULL,
+    total DECIMAL(10,2) NOT NULL,
+    status ENUM('pending','accepted','rejected') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Order Items table
+CREATE TABLE order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT DEFAULT 1,
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+-- Cart Items table
+CREATE TABLE cart_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    buyer_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT DEFAULT 1,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+-- Filters log (optional, for analytics)
+CREATE TABLE filters_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    category_id INT,
+    subcategory_id INT,
+    min_price DECIMAL(10,2),
+    max_price DECIMAL(10,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
+    FOREIGN KEY (subcategory_id) REFERENCES subcategories(id) ON DELETE SET NULL
+);
+
+
+))))))))))))))))))))))))))))))))))))))))))))))))))
+
+veify if all was created : SHOW TABLES;
+
+you would see :
+
+users
+categories
+subcategories
+products
+orders
+order_items
+cart_items
+filters_log
+
+
+!!! Now insert this next 
+
+-- Insert categories
+INSERT INTO categories (name, icon) VALUES 
+('Electronics', 'memory'), 
+('Phones', 'smartphone'), 
+('Cars', 'directions_car');
+
+-- Insert subcategories
+INSERT INTO subcategories (category_id, name) VALUES 
+(1, 'Smartphones'), 
+(1, 'Laptops'), 
+(1, 'Audio Gear'), 
+(3, 'SUV Models'), 
+(3, 'Sedans');
+
+-- Insert admin/seller/buyer users
+INSERT INTO users (name, email, password_hash, role) VALUES 
+('Admin User', 'admin@snavearmy.com', 'admin123', 'admin'),
+('Seller One', 'seller1@snavearmy.com', 'seller123', 'seller'),
+('Buyer One', 'buyer1@snavearmy.com', 'buyer123', 'buyer');
+
+-- Insert products (sample)
+INSERT INTO products (seller_id, category_id, subcategory_id, title, description, price, badge, image, in_stock) VALUES
+(2, 1, 1, 'iPhone 15', 'Latest Apple iPhone 15', 1200.00, 'New', 'images/iphone15.jpg', TRUE),
+(2, 1, 2, 'MacBook Pro 16', 'Apple MacBook Pro 16-inch', 2500.00, 'Bestseller', 'images/macbookpro16.jpg', TRUE),
+(2, 3, 4, 'Toyota RAV4', 'Reliable SUV Model', 30000.00, NULL, 'images/rav4.jpg', TRUE),
+(2, 3, 5, 'Honda Accord', 'Sedan for everyday use', 22000.00, 'Sale', 'images/accord.jpg', TRUE);
+
+
+}
+
+9. Start the app/site {
+
+# Go to the public/web root folder
+cd project name  
+# or just stay in root if plain PHP project with index.php there
+
+php -S localhost:8000
+# or php -S 0.0.0.0:8000 if you want to access from another machine on LAN
+
+}
+
+
